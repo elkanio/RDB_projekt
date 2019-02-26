@@ -17,8 +17,9 @@ public class PublicTransportationApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("Public Transportation Database");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
