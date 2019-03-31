@@ -8,8 +8,8 @@
 
 <AnchorPane id="AnchorPane" fx:id="body" prefHeight="450.0" prefWidth="620.0" styleClass="body" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.tul.fm.public_transportation.FXMLController">
     <children>
-      <JFXButton layoutX="422.0" layoutY="120.0" prefHeight="32.0" prefWidth="96.0" stylesheets="@../styles/Styles.css" text="Import" />
-      <JFXButton layoutX="422.0" layoutY="183.0" prefHeight="32.0" prefWidth="96.0" stylesheets="@../styles/Styles.css" text="Export" />
+      <JFXButton fx:id="importButton" layoutX="422.0" layoutY="120.0" onAction="#importButtonAction" prefHeight="32.0" prefWidth="96.0" stylesheets="@../styles/Styles.css" text="Import" />
+      <JFXButton fx:id="exportButton" layoutX="422.0" layoutY="183.0" onAction="#exportButtonAction" prefHeight="32.0" prefWidth="96.0" stylesheets="@../styles/Styles.css" text="Export" />
       <JFXTextField focusColor="#ff4a5f" layoutX="80.0" layoutY="122.0" prefHeight="27.0" prefWidth="321.0" />
       <JFXTextField focusColor="#ff4a5f" layoutX="80.0" layoutY="185.0" prefHeight="27.0" prefWidth="321.0" />
       <Label layoutX="132.0" layoutY="44.0" text="Public Transportation Database">
