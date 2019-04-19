@@ -6,6 +6,12 @@
 package cz.tul.fm.public_transportation_database;
 
 import java.sql.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 /**
  *
@@ -14,22 +20,28 @@ import java.sql.*;
 public class DatabaseConnection {
 
     public void connect() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            try (Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/dbname", "root", "root")) {
-                //here dbname is database name, root is username and password
-
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+       
     }
 
-    public void query(String query, Connection con) throws SQLException {
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
-        //while(rs.next())
-        //System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3)); 
+    
+    public void hibernateDriverSetting(Driver d){
+        Configuration con = new Configuration().configure().addAnnotatedClass(Driver.class);
+        ServiceRegistry reg= new StandardServiceRegistryBuilder().applySettings(con.getProperties()).build();
+        SessionFactory sf = con.buildSessionFactory(reg);
+        Session session = sf.openSession();
+        Transaction ts = session.beginTransaction();
+        session.save(d);
+        ts.commit();
+    }
+    
+     public void hibernateDriverFetching(){
+        
+        Configuration con = new Configuration().configure().addAnnotatedClass(Driver.class);
+        ServiceRegistry reg= new StandardServiceRegistryBuilder().applySettings(con.getProperties()).build();
+        SessionFactory sf = con.buildSessionFactory(reg);
+        Session session = sf.openSession();
+        Transaction ts = session.beginTransaction();
+        Driver d = (Driver)session.get(Driver.class,1);
+        ts.commit();
     }
 }
