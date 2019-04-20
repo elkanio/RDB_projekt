@@ -5,16 +5,26 @@
  */
 package cz.tul.fm.public_transportation_db_objects;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 /**
  *
  * @author FilipKrat
  */
 public class Contact {
+    @Id
+    @Column(name="kontakt_hodnota")
     private String contact;
-    private String type;
+    @OneToOne
+    @Column(name="typ")
+    private ContactType type;
+    
+    @Column(name="cislo_rp")
     private Driver driver;
 
-    public Contact(String contact, String type, Driver driver) {
+    public Contact(String contact, ContactType type, Driver driver) {
         this.contact = contact;
         this.type = type;
         this.driver = driver;
@@ -24,7 +34,7 @@ public class Contact {
         return contact;
     }
 
-    public String getType() {
+    public ContactType getType() {
         return type;
     }
 
