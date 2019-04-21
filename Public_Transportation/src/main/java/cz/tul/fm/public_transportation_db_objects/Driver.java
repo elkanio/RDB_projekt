@@ -1,14 +1,24 @@
 package cz.tul.fm.public_transportation_db_objects;
 
 import java.util.ArrayList;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author FilipKrat
  */
+@Entity
+@Table(name="Ridic")
 public class Driver {
+    @Id
+    @Column(name="cislo_rp")
     private String licenseNo;
+    @Column(name="ridic_jmeno")
     private String firstName;
+    @Column(name="ridic_prijmeni")
     private String surName;
 
 
@@ -29,6 +39,11 @@ public class Driver {
 
     public String getSurName() {
         return surName;
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{" + "licenseNo=" + licenseNo + ", firstName=" + firstName + ", surName=" + surName + '}';
     }
 
     
