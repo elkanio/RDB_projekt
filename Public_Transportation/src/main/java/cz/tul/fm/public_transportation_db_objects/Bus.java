@@ -1,19 +1,28 @@
 package cz.tul.fm.public_transportation_db_objects;
 
+import javax.persistence.*;
+
 /**
  *
  * @author FilipKrat
  */
+@Entity
+@Table(name = "autobus")
 public class Bus {
-    private String brand;
+    @OneToOne
+    @JoinColumn(name = "znacka")
+    private Brand brand;
+
+    @Id
+    @Column(name="spz")
     private String plate;
 
-    public Bus(String brand, String plate) {
+    public Bus(Brand brand, String plate) {
         this.brand = brand;
         this.plate = plate;
     }
 
-    public String getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 

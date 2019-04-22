@@ -5,37 +5,45 @@
  */
 package cz.tul.fm.public_transportation_db_objects;
 
+import javax.persistence.*;
+import java.sql.Timestamp;
+
 /**
  *
  * @author FilipKrat
  */
+@Entity
+@Table(name = "jizdenka")
 public class Ticket {
-    private int ticketNo;
+
+    @ManyToOne
+    @JoinColumn(name = "linka")
     private Trace trace;
+
+    @ManyToOne
+    @JoinColumn(name = "email")
     private Client client;
 
-    public Ticket(int ticketNo, Trace trace) {
-        this.ticketNo = ticketNo;
+    @Column(name="cas")
+    private Timestamp time;
+
+    @Id
+    @Column(name = "cislo")
+    private String ticketNo;
+
+    public Ticket(Trace trace, Client client, Timestamp time, String ticketNo) {
         this.trace = trace;
-    }
-
-    public void setClient(Client client) {
         this.client = client;
+        this.time = time;
+        this.ticketNo = ticketNo;
     }
 
-    public int getTicketNo() {
-        return ticketNo;
-    }
+    public Trace getTrace() {return trace;}
 
-    public Trace getTrace() {
-        return trace;
-    }
+    public Client getClient() {return client;}
 
-    public Client getClient() {
-        return client;
-    }
+    public Timestamp getTime() {return time;}
 
-    
-    
-    
+    public String getTicketNo() {return ticketNo;}
+
 }

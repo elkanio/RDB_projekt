@@ -5,14 +5,15 @@
  */
 package cz.tul.fm.public_transportation_db_objects;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
 
 /**
  *
  * @author FilipKrat
  */
+@Entity
+@Table(name = "kontakt")
 public class Contact {
     @Id
     @Column(name="kontakt_hodnota")

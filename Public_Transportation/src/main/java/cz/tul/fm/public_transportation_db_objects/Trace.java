@@ -5,17 +5,32 @@
  */
 package cz.tul.fm.public_transportation_db_objects;
 
+import javax.persistence.*;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
  *
  * @author FilipKrat
  */
+@Entity
+@Table(name = "trasy")
 public class Trace {
+    @Id
+    @Column(name="linka")
     private String traceNo;
+
+    @ManyToMany
+    @JoinColumn(name = "odkud")
     private Locality from;
+
+    @ManyToMany
+    @JoinColumn(name = "kam")
     private Locality to;
+
     private ArrayList<Locality> stations;
+    private ArrayList<Timestamp> stationsTime;
 
     public Trace(String traceNo, Locality from, Locality to) {
         this.traceNo = traceNo;

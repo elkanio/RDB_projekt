@@ -5,13 +5,26 @@
  */
 package cz.tul.fm.public_transportation_db_objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author FilipKrat
  */
+@Entity
+@Table(name = "klient")
 public class Client {
+   @Id
+   @Column(name="email")
    private String mail;
+
+   @Column(name="jmeno")
    private String firstName;
+
+   @Column(name="prijmeni")
    private String surName;
 
     public Client(String mail, String firstName, String surName) {

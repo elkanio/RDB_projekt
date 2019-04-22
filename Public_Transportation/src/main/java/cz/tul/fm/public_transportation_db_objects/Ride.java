@@ -5,16 +5,24 @@
  */
 package cz.tul.fm.public_transportation_db_objects;
 
+import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 /**
  *
  * @author FilipKrat
  */
+
+@Entity
+@Table(name = "jizda")
 public class Ride {
+    @Column(name="jmeno")
     private Trace trace;
     private Driver driver;
     private Bus bus;
+
+    @Column(name="cas")
     private Timestamp time;
 
     public Ride(Trace trace, Driver driver, Bus bus, Timestamp time) {

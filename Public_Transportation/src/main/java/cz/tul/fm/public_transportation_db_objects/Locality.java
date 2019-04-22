@@ -5,11 +5,21 @@
  */
 package cz.tul.fm.public_transportation_db_objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author FilipKrat
  */
+
+@Entity
+@Table(name = "lokalita")
 public class Locality {
+    @Id
+    @Column(name="nazev")
     private String localityName;
 
     public Locality(String localityName) {

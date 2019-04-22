@@ -5,11 +5,17 @@
  */
 package cz.tul.fm.public_transportation_db_objects;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 /**
  *
  * @author FilipKrat
  */
 public class ContactType {
+
+    @Id
+    @Column(name="typ")
     private String type;
 
     public ContactType(String type) {
