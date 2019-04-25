@@ -8,10 +8,6 @@ package cz.tul.fm.public_transportation_database;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-/**
- *
- * @author FilipKrat
- */
 public class WaterMarking {
     
 //secret sequence for selecting tuples (watermarked table rows, etc.)

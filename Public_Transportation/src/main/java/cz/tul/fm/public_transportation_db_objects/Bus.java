@@ -2,10 +2,6 @@ package cz.tul.fm.public_transportation_db_objects;
 
 import javax.persistence.*;
 
-/**
- *
- * @author FilipKrat
- */
 @Entity
 @Table(name = "autobus")
 public class Bus {

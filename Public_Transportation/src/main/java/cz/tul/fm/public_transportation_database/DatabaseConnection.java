@@ -15,10 +15,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
-/**
- *
- * @author FilipKrat
- */
 public class DatabaseConnection {
 
     public void connect() {

@@ -10,10 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author FilipKrat
- */
 @Entity
 @Table(name = "klient")
 public class Client {

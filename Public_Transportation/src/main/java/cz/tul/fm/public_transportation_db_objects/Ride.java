@@ -9,10 +9,6 @@ import javax.persistence.*;
 
 import java.sql.Timestamp;
 
-/**
- *
- * @author FilipKrat
- */
 
 @Entity
 @Table(name = "jizda")
