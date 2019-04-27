@@ -12,6 +12,8 @@ public class Brand {
     @Column(name="znacka")
     private String brand;
 
+    public Brand(){}
+
     public Brand(String brand) {
         this.brand = brand;
     }

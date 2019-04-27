@@ -18,12 +18,15 @@ public class Contact {
     @Id
     @Column(name="kontakt_hodnota")
     private String contact;
-    @OneToOne
-    @Column(name="typ")
+    @ManyToOne
+    @JoinColumn(name="typ")
     private ContactType type;
-    
-    @Column(name="cislo_rp")
+
+    @ManyToOne
+    @JoinColumn(name="cislo_rp")
     private Driver driver;
+
+    public Contact(){}
 
     public Contact(String contact, ContactType type, Driver driver) {
         this.contact = contact;

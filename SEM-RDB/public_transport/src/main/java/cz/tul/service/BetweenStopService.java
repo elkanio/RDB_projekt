@@ -17,9 +17,6 @@ public class BetweenStopService {
         betweenStopRepository.save(betweenStop);
     }
 
-    public boolean exists(String username) {
-        return betweenStopRepository.exists(username);
-    }
 
     public List<BetweenStop> getAllBetweenStops() {
         return StreamSupport.stream(betweenStopRepository.findAll().spliterator(), false).collect(Collectors.toList());

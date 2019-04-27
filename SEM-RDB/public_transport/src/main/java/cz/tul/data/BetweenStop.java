@@ -1,18 +1,21 @@
 package cz.tul.data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "mezizastavka")
-public class BetweenStop {
+@IdClass(BetweenStopId.class)
+public class BetweenStop implements Serializable {
     @Id
-    @Column(name="nazev")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name="nazev")
+    private Locality name;
 
     @Id
-    @Column(name="linka")
-    private String linka;
+    @ManyToOne
+    @JoinColumn(name="linka")
+    private Trace linka;
+
+    public BetweenStop(){}
 }

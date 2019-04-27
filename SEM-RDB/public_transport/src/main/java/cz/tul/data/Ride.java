@@ -6,29 +6,33 @@
 package cz.tul.data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
 @Entity
 @Table(name = "jizda")
-public class Ride {
+@IdClass(RideId.class)
+public class Ride implements Serializable {
 
     @Id
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "linka")
     private Trace trace;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "cislo_rp")
     private Driver driver;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "spz")
     private Bus bus;
 
     @Id
     @Column(name="cas")
     private Timestamp time;
+
+    public Ride(){}
 
     public Ride(Trace trace, Driver driver, Bus bus, Timestamp time) {
         this.trace = trace;
@@ -53,5 +57,26 @@ public class Ride {
         return time;
     }
     
-    
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Ride other = (Ride) obj;
+        if (trace == null) {
+            if (other.trace != null)
+                return false;
+        } else if (!trace.equals(other.trace))
+            return false;
+        if (time == null) {
+            if (other.time != null)
+                return false;
+        } else if (!time.equals(other.time))
+            return false;
+        return true;
+
+    }
 }

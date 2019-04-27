@@ -23,6 +23,8 @@ public class Client {
    @Column(name="prijmeni")
    private String surName;
 
+   public Client(){}
+
     public Client(String mail, String firstName, String surName) {
         this.mail = mail;
         this.firstName = firstName;

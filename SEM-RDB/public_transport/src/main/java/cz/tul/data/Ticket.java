@@ -24,12 +24,14 @@ public class Ticket {
     @JoinColumn(name = "email")
     private Client client;
 
-    @Column(name="cas")
+    @JoinColumn(name="cas")
     private Timestamp time;
 
     @Id
     @Column(name = "cislo")
     private String ticketNo;
+
+    public Ticket(){}
 
     public Ticket(Trace trace, Client client, Timestamp time, String ticketNo) {
         this.trace = trace;

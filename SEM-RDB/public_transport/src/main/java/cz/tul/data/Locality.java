@@ -22,6 +22,8 @@ public class Locality {
     @Column(name="nazev")
     private String localityName;
 
+    public Locality(){}
+
     public Locality(String localityName) {
         this.localityName = localityName;
     }

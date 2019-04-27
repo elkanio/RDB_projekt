@@ -6,17 +6,23 @@
 package cz.tul.data;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author FilipKrat
  */
+@Entity
+@Table(name = "typkontaktu")
 public class ContactType {
 
     @Id
     @Column(name="typ")
     private String type;
+
+    public ContactType(){}
 
     public ContactType(String type) {
         this.type = type;

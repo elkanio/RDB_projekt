@@ -17,9 +17,6 @@ public class RideService {
         rideRepository.save(ride);
     }
 
-    public boolean exists(String username) {
-        return rideRepository.exists(username);
-    }
 
     public List<Ride> getAllRides() {
         return StreamSupport.stream(rideRepository.findAll().spliterator(), false).collect(Collectors.toList());

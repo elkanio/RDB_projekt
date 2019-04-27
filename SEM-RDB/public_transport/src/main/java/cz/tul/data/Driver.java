@@ -17,6 +17,7 @@ public class Driver {
     @Column(name="ridic_prijmeni")
     private String surName;
 
+    public Driver(){}
 
     public Driver(String licenseNo, String firstName, String surName) {
         this.licenseNo = licenseNo;

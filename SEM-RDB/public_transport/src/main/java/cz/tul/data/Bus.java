@@ -5,13 +5,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "autobus")
 public class Bus {
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "znacka")
     private Brand brand;
 
     @Id
     @Column(name="spz")
     private String plate;
+
+    public Bus(){}
 
     public Bus(Brand brand, String plate) {
         this.brand = brand;

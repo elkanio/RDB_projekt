@@ -20,11 +20,11 @@ public class Trace {
     @Column(name="linka")
     private String traceNo;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "odkud")
     private Locality from;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "kam")
     private Locality to;
 
@@ -36,6 +36,8 @@ public class Trace {
         this.from = from;
         this.to = to;
     }
+
+    public Trace(){}
 
     public void setStations(ArrayList<Locality> stations) {
         this.stations = stations;
