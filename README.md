@@ -1,2 +1,2 @@
 # RDB_projekt
-Lukáš Kania, Filip Kratochvíl
+Lukáš Kania, Tomas Blazek
