@@ -1,0 +1,11 @@
+.button {
+    -fx-font-weight: bold;
+    -fx-background-color: #F2A836;
+}
+.body{
+    -fx-background-image:url("../images/bg.png");
+    -fx-background-position: bottom left;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 750.0 430.0;
+    -fx-background-color: white;
+}
