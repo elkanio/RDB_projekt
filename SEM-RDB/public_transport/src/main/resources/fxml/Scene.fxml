@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="body" prefHeight="450.0" prefWidth="620.0" styleClass="body" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.tul.FXMLController">
+<AnchorPane id="AnchorPane" fx:id="body" prefHeight="450.0" prefWidth="620.0" styleClass="body" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.tul.FXML.FXMLController">
     <children>
       <JFXButton fx:id="importButton" layoutX="422.0" layoutY="120.0" onAction="#importButtonAction" prefHeight="32.0" prefWidth="96.0" stylesheets="@../styles/Styles.css" text="Import" />
       <JFXButton fx:id="exportButton" layoutX="422.0" layoutY="183.0" onAction="#exportButtonAction" prefHeight="32.0" prefWidth="96.0" stylesheets="@../styles/Styles.css" text="Export" />

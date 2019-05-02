@@ -1,35 +1,50 @@
 package cz.tul;
 
-import cz.tul.data.Brand;
-import cz.tul.service.BrandService;
-import cz.tul.service.CountryService;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.orm.jpa.EntityScan;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.List;
+import static javafx.application.Application.launch;
 
 @SpringBootApplication
 @EnableJpaRepositories("cz.tul.repositories")
-@EntityScan("cz.tul.data")
-public class Main {
+public class Main extends Application {
 
-  @Bean
-  public BrandService brandService() {
-    return new BrandService();
+  private ConfigurableApplicationContext springContext;
+  private Parent root;
+
+  @Override
+  public void init() throws Exception {
+    springContext = SpringApplication.run(Main.class);
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
+    fxmlLoader.setControllerFactory(springContext::getBean);
+    root = fxmlLoader.load();
+  }
+
+  public void start(Stage stage) throws Exception {
+
+    Scene scene = new Scene(root);
+    scene.getStylesheets().add("/styles/Styles.css");
+
+    stage.setTitle("Public Transportation Database");
+    stage.setScene(scene);
+    stage.setResizable(false);
+    stage.show();
   }
 
   public static void main(String[] args) {
 
-    SpringApplication app = new SpringApplication(Main.class);
-    ApplicationContext context = app.run(args);
 
-    BrandService brandService = context.getBean(BrandService.class);
-    List<Brand> brands = brandService.getAllBrands();
-    System.out.println(brands);
+    SpringApplication.run(Main.class,args);
+
+
+    launch(args);
 
   }
 }

@@ -5,83 +5,105 @@
  */
 package cz.tul;
 
+import org.springframework.data.repository.CrudRepository;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import static java.lang.Math.abs;
+
 public class WaterMarking {
+
+    private int lastNEntries = 0;
+    private int lastMarkHitCount = 0;
     
 //secret sequence for selecting tuples (watermarked table rows, etc.)
-    private final int[] privateSequence = {13, 55, 40, 81, 67, 37, 96, 98, 53, 34, 71, 58, 41, 46, 63, 86, 4, 43, 29, 51, 78, 68, 56, 84, 31, 15, 45, 64, 77, 11, 24, 35, 9, 89, 6, 95, 85, 50, 62};
-
-    /**
-     * Method for generating numbers of rows to be selected for watermarking
-     * based on secret sequence
-     *
-     * @param numberOfRows stands for number of rows of table to be watermarked
-     * @return uniqueList - row indices to be selected
-     */
-    public ArrayList<Integer> rowsToSelect(int numberOfRows) {
-        ArrayList<Integer> allValues = new ArrayList<>();
-        for (int i = 0; i < privateSequence.length; i++) {
-            allValues.add(privateSequence[i] % numberOfRows);
+    private int hash = "náš hash".hashCode();
+    public String addWatermark(String data ) {
+        if (data == null){
+            return data;
         }
-        ArrayList<Integer> uniqueList = new ArrayList<>(new HashSet<>(allValues));
-        return uniqueList;
+
+        String curr = data;
+        curr = curr.replace("\u200b","");
+        curr = curr.replace("\ufeff","");
+        if (!curr.isEmpty()) {
+            int currHash = abs(curr.hashCode() + hash);
+            int index = currHash % curr.length();
+            if (currHash % 2 == 0) {
+                if (data.charAt(index) != '\u200b') {
+                    data = data.substring(0, index) + '\u200b' + data.substring(index);
+                }
+            } else {
+                if (data.charAt(index) != '\u200b') {
+                    data = data.substring(0, index) + '\ufeff' + curr.substring(index);
+                }
+            }
+        }
+        return data;
     }
 
-    /**
-     * Method for watermarking random numerical attributes from selected rows
-     *
-     * @param markableAttributes - stands for numerical attributes from selected
-     * rows
-     * @return markableAttributes - after watermarking
-     */
-    public ArrayList<ArrayList<Integer>> makeAtributeWatermark(ArrayList<ArrayList<Integer>> markableAttributes) {
-        int modulation = 0;
-        int selectedAttribute;
-        if (markableAttributes.size() > 0) {
-            modulation = markableAttributes.get(0).size();
+    public String removeWatermark(String data ) {
+        if (data == null){
+            return data;
         }
-        for (int i = 0; i < markableAttributes.size(); i++) {
-            int currentPrivate = privateSequence[i % privateSequence.length];
-            selectedAttribute = currentPrivate % modulation;
-            ArrayList<Integer> temp = markableAttributes.get(i);
-            int j = temp.get(selectedAttribute);
-            int marked = addWatermark(j, currentPrivate);
-            temp.set(selectedAttribute, marked);
-            markableAttributes.set(i, temp);
+        String curr = data;
+        StringBuilder dewatermarked = new StringBuilder(curr);
+
+        curr = curr.replace("\u200b","");
+        curr = curr.replace("\ufeff","");
+        if (!curr.isEmpty()) {
+            int currHash = abs(hash + curr.hashCode());
+            int index = currHash % curr.length();
+            if (curr.hashCode() % 2 == 0) {
+                if (dewatermarked.charAt(index) == '\u200b') {
+                    dewatermarked.deleteCharAt(index);
+                }
+            } else {
+                if (dewatermarked.charAt(index) == '\ufeff') {
+                    dewatermarked.deleteCharAt(index);
+                }
+            }
         }
-        return markableAttributes;
+        return dewatermarked.toString();
     }
 
-    /**
-     * Method for watermarking at random bit of integer
-     *
-     * @param attribute - attribute to be watermarked, currenPrivate - current
-     * private key for watermark
-     * @return watermarkedAttr - successfully watermarked attribute
-     */
-    public int addWatermark(int attribute, int currentPrivate) {
-        int watermarkedAttr;
-        int testBinar = currentPrivate % 2;
-        int randIndex = (currentPrivate % 3) + 1;
-        String bin = Integer.toBinaryString(attribute);
-        int lastOrPreLast = Integer.parseInt(bin.substring(bin.length() - randIndex));
-        if (testBinar == lastOrPreLast) {
-            StringBuilder watermarked = new StringBuilder(bin);
-            watermarked.setCharAt(lastOrPreLast, '1');
-            watermarkedAttr = Integer.parseInt(watermarked.toString(), 2);
-        } else {
-            StringBuilder watermarked = new StringBuilder(bin);
-            watermarked.setCharAt(lastOrPreLast, '0');
-            watermarkedAttr = Integer.parseInt(watermarked.toString(), 2);
+    public boolean detectWatermark(String data ) {
+        if (data == null){
+            return true;
         }
-        return watermarkedAttr;
+            String curr = data;
+
+            curr = curr.replace("\u200b", "");
+            curr = curr.replace("\ufeff", "");
+            if (!curr.isEmpty()) {
+                int currHash = abs(hash + curr.hashCode());
+                int index = currHash % curr.length();
+                if (curr.hashCode() % 2 == 0) {
+                    if (data.charAt(index) == '\u200b') {
+                        return true;
+                    }
+                } else {
+                    if (data.charAt(index) == '\ufeff') {
+                        return true;
+                    }
+                }
+            }
+        return false;
     }
 
-    public void removeWatermark() {
-        //TODO
+
+    public int getLastNEntries() {
+        return lastNEntries;
     }
+
+    public int getLastHitMissCount() {
+        return lastMarkHitCount;
+    }
+
+
 
     public boolean compareData() {
         boolean isSame = true;
